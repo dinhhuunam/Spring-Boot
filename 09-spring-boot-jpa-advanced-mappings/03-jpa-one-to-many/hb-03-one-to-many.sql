@@ -31,6 +31,6 @@ CREATE TABLE `course` (
     `title` varchar(128) DEFAULT NULL,
     `instructor_id` int(11) DEFAULT NULL,
     PRIMARY KEY(`id`),
-    UNIQUE KEY `TITLE_UINQUE` (`title`),
+    UNIQUE KEY `TITLE_UINQUE` (`title`),  
     FOREIGN KEY(`instructor_id`) REFERENCES `instructor`(`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10;

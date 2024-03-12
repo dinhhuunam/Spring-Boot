@@ -4,6 +4,7 @@ import com.luv2code.cruddemo.dao.AppDAO;
 import com.luv2code.cruddemo.entity.Course;
 import com.luv2code.cruddemo.entity.Instructor;
 import com.luv2code.cruddemo.entity.InstructorDetail;
+import com.luv2code.cruddemo.entity.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -44,8 +45,55 @@ public class CruddemoApplication {
 			
 			//updateCourse(appDAO);
 
-			deleteCourse(appDAO);
+			//deleteCourse(appDAO);
+
+			//System.out.println("Hello world");
+
+			//createCourseAndReview(appDAO);
+
+			//retrieveCourseAndReview(appDAO);
+
+			deleteCourseAndReview(appDAO);
 		};
+	}
+
+	private void deleteCourseAndReview(AppDAO appDAO) {
+		int theId = 10;
+
+		System.out.println("Deleting course id: "+theId);
+
+		//will delete course and associated reviews thanks to CascadeType.ALL
+		appDAO.deleteCourseById(theId);
+
+		System.out.println("DONE!!!");
+	}
+
+	private void retrieveCourseAndReview(AppDAO appDAO) {
+		//get the course and reviews
+		int theId = 10;
+		Course tempCourse = appDAO.findCourseAndReviewByCourseId(theId);
+		//print the course
+		System.out.println(tempCourse);
+		//print the reviews
+		System.out.println(tempCourse.getReviews());
+
+		System.out.println("DONE!!!");
+	}
+
+	private void createCourseAndReview(AppDAO appDAO) {
+		//create a course
+		Course tempCourse = new Course("Spring Boot Udemy");
+		//add some reviews
+		tempCourse.addReview(new Review("Great course...loved it"));
+		tempCourse.addReview(new Review("I loved it so much"));
+		tempCourse.addReview(new Review("Great course"));
+		//save the course ... leverage the cascade all
+		System.out.println("Saving the course");
+		System.out.println(tempCourse);
+		System.out.println(tempCourse.getReviews());
+
+		appDAO.save(tempCourse);
+		System.out.println("DONE!!!");
 	}
 
 	private void deleteCourse(AppDAO appDAO) {
